@@ -11,12 +11,14 @@ namespace LexiconUniversity.Core.Entities
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
 
-        public string FullName => $"{FirstName} {LastName}"; 
+        public string FullName => $"{FirstName} {LastName}";
 
         public string Email { get; set; } = string.Empty;
 
         public Address Address { get; set; } = new Address();
 
-        public ICollection<Enrollment> Enrollments { get; set; }
+        //public ICollection<Enrollment> Enrollments { get; set; }
+
+        public ICollection<Course> Courses { get; set; }
     }
 }
