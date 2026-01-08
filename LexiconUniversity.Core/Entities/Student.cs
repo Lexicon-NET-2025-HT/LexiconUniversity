@@ -14,7 +14,7 @@ namespace LexiconUniversity.Core.Entities
 
         public Address Address { get; set; } = new Address();
 
-        public ICollection<Enrollment> Enrollments { get; set; }
+        public ICollection<Enrollment> Enrollments { get; set; } = new List<Enrollment>(); 
 
         public ICollection<Course> Courses { get; set; }
     }

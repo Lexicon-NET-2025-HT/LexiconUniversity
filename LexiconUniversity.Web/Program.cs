@@ -1,6 +1,7 @@
 using LexiconUniversity.Persistance;
 using LexiconUniversity.Persistance.Data;
 using LexiconUniversity.Web.Extensions;
+using LexiconUniversity.Web.Services;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
@@ -18,6 +19,8 @@ namespace LexiconUniversity.Web
             builder.Services.AddDbContext<LexiconUniversityContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("LexiconUniversityContext") ?? throw new InvalidOperationException("Connection string 'LexiconUniversityContext' not found.")));
 
+            builder.Services.AddScoped<IGetCoursesService, GetCoursesService>();
+            
             var app = builder.Build();           
 
             // Configure the HTTP request pipeline.
