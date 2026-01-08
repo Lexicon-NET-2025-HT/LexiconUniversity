@@ -1,5 +1,6 @@
 using LexiconUniversity.Persistance;
 using LexiconUniversity.Persistance.Data;
+using LexiconUniversity.Web.Extensions;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
@@ -17,26 +18,7 @@ namespace LexiconUniversity.Web
             builder.Services.AddDbContext<LexiconUniversityContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("LexiconUniversityContext") ?? throw new InvalidOperationException("Connection string 'LexiconUniversityContext' not found.")));
 
-            var app = builder.Build();
-
-            using(var scope = app.Services.CreateScope())
-            {
-                var serviceProvider = scope.ServiceProvider;
-                var context = serviceProvider.GetRequiredService<LexiconUniversityContext>();
-
-                //await context.Database.EnsureDeletedAsync();
-                //await context.Database.MigrateAsync();
-
-                try
-                {
-                    await SeedData.InitAsync(context); 
-                }
-                catch (Exception ex)
-                {
-
-                    throw;
-                }
-            }
+            var app = builder.Build();           
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -44,9 +26,12 @@ namespace LexiconUniversity.Web
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
+            }else
+            {
+                await app.SeedDataAsync(); 
             }
 
-            app.UseHttpsRedirection();
+                app.UseHttpsRedirection();
             app.UseRouting();
 
             app.UseAuthorization();
