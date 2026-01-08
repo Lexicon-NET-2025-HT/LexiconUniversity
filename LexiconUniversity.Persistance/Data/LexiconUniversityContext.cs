@@ -24,6 +24,18 @@ namespace LexiconUniversity.Persistance.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            //Wrong name in DB
+            //modelBuilder.Entity<Student>().OwnsOne(s => s.Name); 
+
+            modelBuilder.Entity<Student>()
+                .OwnsOne(s => s.Name)
+                .Property(n => n.FirstName)
+                .HasColumnName("FirstName");
+            modelBuilder.Entity<Student>()
+                .OwnsOne(s => s.Name)
+                .Property(n => n.LastName)
+                .HasColumnName("LastName");
+
             modelBuilder.Entity<Student>()
                 .HasMany(s => s.Courses)
                 .WithMany(c => c.Students)

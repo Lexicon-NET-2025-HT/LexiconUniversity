@@ -79,11 +79,12 @@ namespace LexiconUniversity.Persistance
                 string lName = faker.Name.LastName();
                 string email = faker.Internet.Email(fName, lName, "lexicon.se");
 
+                Name name = new Name() { FirstName = fName, LastName = lName };
+
                 Student student = new Student()
                 {
                     Avatar = avatar,
-                    FirstName = fName,
-                    LastName = lName,
+                    Name = name,
                     Email = email,
                     Address = new Address
                     {
