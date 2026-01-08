@@ -31,13 +31,18 @@ namespace LexiconUniversity.Web.Controllers
             //var full = _context.Students.Include(s => s.Address).Include(s => s.Enrollments).ThenInclude(e => e.Course).ToList(); 
 
             var model = _context.Students/*.AsNoTracking()*/
-                .OrderByDescending(s=>s.Id)
+                .OrderByDescending(s => s.Id)
                 .Select(s => new StudentIndexViewModel
                 {
                     Id = s.Id,
                     Avatar = s.Avatar,
                     FullName = s.Name.FullName,
-                    City = s.Address.City
+                    City = s.Address.City,
+                    CourseInfos = s.Enrollments.Select(e => new CourseInfo
+                    {
+                        CourseName = e.Course.Title,
+                        Grade = e.Grade
+                    })
                 })
                 .Take(5); 
 
