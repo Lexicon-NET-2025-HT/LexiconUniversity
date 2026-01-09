@@ -27,10 +27,11 @@ namespace LexiconUniversity.Persistance.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfiguration(new StudentConfigurations());
-           
 
-
-            //modelBuilder.Entity<Enrollment>().HasKey(e => new { e.CourseId, e.StudentId });
+            //foreach (var entity in modelBuilder.Model.GetEntityTypes())
+            //{
+            //    entity.AddProperty("Edited", typeof(DateTime)); 
+            //}
         }
     }
 }
