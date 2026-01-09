@@ -23,14 +23,11 @@ namespace LexiconUniversity.Web.Controllers
         // GET: Students
         public async Task<IActionResult> Index()
         {
-            //var t = _context.Students.ToList();
-
-            //var t2 = _context.Students.Include(s => s.Enrollments).ToList();
-
-            //var t3 = _context.Students.Include(s => s.Enrollments).ThenInclude(e => e.Course).ToList();
-
-            //var full = _context.Students.Include(s => s.Address).Include(s => s.Enrollments).ThenInclude(e => e.Course).ToList(); 
-
+            Student student = _context.Students.Include(s => s.Address).FirstOrDefault();
+            student.Name.FirstName = "Edited in index";
+            _context.Students.Update(student);
+            await _context.SaveChangesAsync();
+            
             var model = _context.Students/*.AsNoTracking()*/
                 .OrderByDescending(s => s.Id)
                 .Select(s => new StudentIndexViewModel
