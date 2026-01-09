@@ -1,6 +1,7 @@
 using LexiconUniversity.Persistance;
 using LexiconUniversity.Persistance.Data;
 using LexiconUniversity.Web.Extensions;
+using LexiconUniversity.Web.Filters;
 using LexiconUniversity.Web.Services;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
@@ -15,6 +16,11 @@ namespace LexiconUniversity.Web
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            //builder.Services.AddControllersWithViews(
+            //    opt =>
+            //    {
+            //        opt.Filters.Add(typeof(ModelStateIsValid));
+            //    });
 
             builder.Services.AddDbContext<LexiconUniversityContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("LexiconUniversityContext") ?? throw new InvalidOperationException("Connection string 'LexiconUniversityContext' not found.")));
